@@ -1,1 +1,36 @@
+install.packages("readxl")
+library(readxl)
 
+populacao <- read_excel("C:/Users/zanni/Downloads/população.xlsx")
+amostra <- read_excel("C:/Users/zanni/Downloads/amostra.xlsx")
+as.factor(amostra$AAS)
+as.factor(população$num)
+# Garantir que AAS é numérico
+amostra$AAS <- as.numeric(amostra$AAS)
+
+# Remover AAS inválidos (NA)
+amostra <- amostra[!is.na(amostra$AAS), ]
+
+# Selecionar elementos sorteados
+amostra_completa <- populacao[amostra$AAS, ]
+
+# Tamanhos
+n <- nrow(amostra_completa)
+N <- nrow(populacao)
+
+# Média estimada (AAS s/ reposição)
+media_estimada <- mean(amostra_completa$renda)
+
+# Variância amostral
+s2 <- var(amostra_completa$renda)
+
+# Variância da média
+var_media <- (1 - n/N) * (s2 / n)
+
+# Erro padrão
+erro_padrao <- sqrt(var_media)
+
+# Resultados
+cat("Média estimada da renda:", media_estimada, "\n")
+cat("Variância da estimativa da média:", var_media, "\n")
+cat("Erro padrão:", erro_padrao, "\n")
