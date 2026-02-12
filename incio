@@ -1,0 +1,7 @@
+amostra <- populacao
+populacao <- amostra_indices
+
+mu_renda_pop <- mean(populacao$renda)
+s2_renda <- var(dados_amostra$renda)
+
+var_media_renda <- (1 - n/N) * (s2_renda / n)
