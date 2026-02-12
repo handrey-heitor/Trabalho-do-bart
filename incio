@@ -1,7 +1,27 @@
-amostra <- populacao
-populacao <- amostra_indices
 
-mu_renda_pop <- mean(populacao$renda)
-s2_renda <- var(dados_amostra$renda)
+#população
+pop <- read.csv("C:\\Users\\handr\\Downloads\\Planilha sem título - População-aTrabalhar.csv",
+                stringsAsFactors = FALSE)
+#(IDs)
+ids <- read.csv("C:\\Users\\handr\\Downloads\\Planilha sem título - AmostraSorteada.csv",
+                stringsAsFactors = FALSE)
 
-var_media_renda <- (1 - n/N) * (s2_renda / n)
+#------Limpar----------------------------------------------------------------------------------------------------------------
+  
+#só a coluna AAS
+ids <- ids[, "AAS", drop = FALSE]
+#(ID como número)
+ids$AAS <- as.numeric(ids$AAS)
+# Remove NA (se tiver)
+ids <- ids[!is.na(ids$AAS), , drop = FALSE]
+
+#------juntar--------------------------------------------------------------------------------------------------------------------
+
+amostra <- pop[pop$num %in% ids$AAS, ]
+
+#--------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
